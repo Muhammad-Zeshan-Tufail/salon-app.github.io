@@ -56,7 +56,7 @@ function VendorTable() {
                       data.map((item, index) => (
                         <tr key={index}>
                           <td>{item.id}</td>
-                          <td style={{width:"10px", height:"10px",padding:"0px auto"}}><img style={{maxWidth:"56%"}} src={image} alt={image}/> </td>
+                          <td style={{padding:"0px",paddingLeft:"7px"}}><img style={{width:"35px", height:"35px",borderRadius:"50%"}} src={image} alt={image}/> </td>
                           <td>{item.name}</td>
                           <td>{item.address}</td>
                           <td>{item.details}</td>

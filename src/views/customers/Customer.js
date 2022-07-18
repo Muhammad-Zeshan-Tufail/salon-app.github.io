@@ -56,7 +56,7 @@ function Customers() {
                       data.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td style={{width:"10px", height:"10px",padding:"0px auto",borderRadius:"50%"}}><img style={{maxWidth:"56%"}} src={item.image} alt={image}/> </td>
+                          <td style={{padding:"0px",paddingLeft:"7px"}} ><img style={{width:"35px", height:"35px",borderRadius:"50%"}}  src={item.image} alt={image}/> </td>
                           {/* <td>{item.image}</td> */}
                           <td>{item.first_name}</td>
                           <td>{item.last_name}</td>
