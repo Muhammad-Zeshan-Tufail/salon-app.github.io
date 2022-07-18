@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/salon-app.github.io/static/css/main.65f4911a.chunk.css",
+    "main.js": "/salon-app.github.io/static/js/main.c9968827.chunk.js",
+    "main.js.map": "/salon-app.github.io/static/js/main.c9968827.chunk.js.map",
+    "runtime-main.js": "/salon-app.github.io/static/js/runtime-main.6c14332e.js",
+    "runtime-main.js.map": "/salon-app.github.io/static/js/runtime-main.6c14332e.js.map",
+    "static/css/2.1881a404.chunk.css": "/salon-app.github.io/static/css/2.1881a404.chunk.css",
+    "static/js/2.99de7a83.chunk.js": "/salon-app.github.io/static/js/2.99de7a83.chunk.js",
+    "static/js/2.99de7a83.chunk.js.map": "/salon-app.github.io/static/js/2.99de7a83.chunk.js.map",
+    "index.html": "/salon-app.github.io/index.html",
+    "static/css/2.1881a404.chunk.css.map": "/salon-app.github.io/static/css/2.1881a404.chunk.css.map",
+    "static/css/main.65f4911a.chunk.css.map": "/salon-app.github.io/static/css/main.65f4911a.chunk.css.map",
+    "static/js/2.99de7a83.chunk.js.LICENSE.txt": "/salon-app.github.io/static/js/2.99de7a83.chunk.js.LICENSE.txt",
+    "static/js/main.c9968827.chunk.js.LICENSE.txt": "/salon-app.github.io/static/js/main.c9968827.chunk.js.LICENSE.txt",
+    "static/media/mike.d34d0690.jpg": "/salon-app.github.io/static/media/mike.d34d0690.jpg",
+    "static/media/paper-dashboard.scss?v=1.3.0": "/salon-app.github.io/static/media/nucleo-icons.ec16bc4c.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c14332e.js",
+    "static/css/2.1881a404.chunk.css",
+    "static/js/2.99de7a83.chunk.js",
+    "static/css/main.65f4911a.chunk.css",
+    "static/js/main.c9968827.chunk.js"
+  ]
+}
