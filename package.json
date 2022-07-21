@@ -2,9 +2,7 @@
   "name": "paper-dashboard-react",
   "version": "1.3.0",
   "private": true,
- //"homepage": "https://https://www.taskeraa.com/salon-app.github.io",
-    "homepage": "https://www.taskeraa.com",
-
+  "homepage": "https://www.taskeraa.com",
   "dependencies": {
     "@babel/core": "7.14.2",
     "axios": "^0.27.2",
