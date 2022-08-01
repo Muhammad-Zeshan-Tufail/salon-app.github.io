@@ -108,8 +108,8 @@ const CategoryProvider = ({ children }) => {
   };
   const handleChange = (e) => {
     // setState({ service_id: e.target.value });
-    // setServiceId( e.target.value );
-    setServiceId(value);
+    setServiceId( e.target.value );
+    // setServiceId();
     // setFilter(e.target.value)
 
   };

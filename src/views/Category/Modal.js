@@ -46,7 +46,7 @@ function Modal() {
                     {data.map((item, id) => (
                      
                       <option key={id} value={item.id}>
-                        Choose{item.service_name}
+                        {item.service_name}
                       </option>
                     ))}
                   </select>
