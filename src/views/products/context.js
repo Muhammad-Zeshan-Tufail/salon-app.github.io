@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useContext } from "react";
-// import { toast } from "react-toastify";
 import axios from "axios";
 
 const productsApi = "http://localhost:3001/users";
@@ -100,6 +99,12 @@ const ProductProvider = ({ children }) => {
   };
   const handleChange = (e) => {
     let { name, value } = e.target;
+    // setFilter(e.target.value)
+    setState({ ...state, [name]: value });
+  };
+  const handleSearchChange = (e) => {
+    let { name, value } = e.target;
+    setFilter(e.target.value)
     setState({ ...state, [name]: value });
   };
 
@@ -125,6 +130,7 @@ const ProductProvider = ({ children }) => {
         initialState,
         filter,
         setFilter,
+        handleSearchChange
       }}
     >
       {children}

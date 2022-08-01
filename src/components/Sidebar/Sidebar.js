@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
+import logo from "../../assets/img/Salon-Logo.png"
 
 var ps;
 
@@ -37,7 +38,7 @@ function Sidebar(props) {
           className="simple-text logo-mini"
         >
           <div className="logo-img">
-            <img src="https://thesourcehairdressing.com.au/wp-content/uploads/2018/10/mysalonapp-icon.png" alt="react-logo" />
+            <img src={logo} alt="react-logo" />
           </div>
         </a>
         <a

@@ -3,94 +3,102 @@ import { useContext } from "react";
 // import { toast } from "react-toastify";
 import axios from "axios";
 
-const categoryApi = "http://localhost:3001/category";
+const categoryApi = "http://localhost:4000/admin/get-category";
+const subCategoryApi = "http://localhost:4000/admin/add-subservice";
 
 const initialState = {
-  category_name: "",
-  brand: "",
-  color: "",
-  quantity: "",
-  isDis:false
+  sub_service_name: "",
+  image_url: "",
+  service_id:""
+  // isDis:false
 };
+
 const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
-    const [data, setData] = useState([]);
-    const [userId, setUserId] = useState(null);
-    const [state, setState] = useState(initialState);
-    const [editMood, setEditMood] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [filter , setFilter] = useState("");
-    const {category_name, brand, color, quantity  } = state; 
+  const [data, setData] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [state, setState] = useState(initialState);
+  const [editMood, setEditMood] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filter, setFilter] = useState("");
+  const [serviceId, setServiceId] = useState([]);
+  const [subservicename, setSubServiceName] = useState("");
 
-    const openModal = () => {
+  const { sub_service_name, service_id } = state;
+
+  const openModal = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => {
     setIsModalOpen(false);
-    setState({ category_name: "", brand: "", color: "", quantity: "",isDis:false });
+    setState({ sub_service_name: "", image_url: "" });
   };
 
-  const loadUsers = async () => {
+  const loadCategories = async () => {
     const response = await axios.get(categoryApi);
     setData(response.data);
   };
   useEffect(() => {
-    loadUsers();
+    loadCategories();
   }, []);
 
-  const handleDelete = async(id) => {
-    
-    // console.log(id ,"this is Delete action ");
-
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure, you want to delete it?")) {
       axios.delete(`${categoryApi}/${id}`);
-    //   toast.success("Deleted Successfully");
+      //   toast.success("Deleted Successfully");
       setTimeout(() => {
-        loadUsers();
+        loadCategories();
       }, 500);
     }
   };
 
-  const handleUpdate = (id) => {
-    const singleUser = data.find((item) => item.id === id);
-    openModal();
-    setState({ ...singleUser });
-    setUserId(id);
-    setEditMood(true);
-  };
+  // const handleUpdate = (id) => {
+  //   const singleUser = data.find((item) => item.id === id);
+  //   openModal();
+  //   setState({ ...singleUser });
+  //   setUserId(id);
+  //   setEditMood(true);
+  // };
 
-  const handleDisable = async(id,isDis) => {
-    const singleUser = data.find((item) => item.id === id);
-    singleUser.isDis = isDis?false : true 
-    setState({...singleUser});
-    axios.put(`${categoryApi}/${id}`, {...singleUser} );
-    // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
-    setState({ category_name: "", brand: "", color: "", quantity: "",isDis:false });
-    setUserId(null);
-  }
-
+  // const handleDisable = async(id,isDis) => {
+  //   const singleUser = data.find((item) => item.id === id);
+  //   singleUser.isDis = isDis?false : true
+  //   setState({...singleUser});
+  //   axios.put(`${categoryApi}/${id}`, {...singleUser} );
+  //   // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
+  //   setState({ category_name: "", brand: "", color: "", quantity: "",isDis:false });
+  //   setUserId(null);
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!category_name || !brand || !color || !quantity) {
+    // console.log("clicked");
+    if (!subservicename) {
+      return <h2>No item to add</h2>;
+
       // toast.error("Please fill all input fields");
     } else {
+      console.log("in else");
+
       if (!editMood) {
-        axios.post(categoryApi, state);
+        console.log("in inner else");
+        console.log(state)
+        axios.post(subCategoryApi, {service_id:serviceId, sub_service_name:subservicename});
         // toast.success("Added Successfully");
-        setState({ category_name: "", brand: "", color: "", quantity: "",isDis:false });
+        // setMainState({service_name: ""});
+        setState({ sub_service_name: "", service_id });
         setTimeout(() => {
-          loadUsers();
+          loadCategories();
         }, 500);
         closeModal();
       } else {
-        axios.put(`${categoryApi}/${userId} `, state);
+        axios.put(`${subCategoryApi}/${userId} `, state);
         // console.log(`${api}/${userId} ` , state);
         // toast.success("Updated Successfully");
-        setState({ category_name: "", brand: "", color: "", quantity: "",isDis:false });
+        setState({ sub_service_name: "", image_url: "" });
         setTimeout(() => {
-          loadUsers();
+          loadCategories();
         }, 500);
         setUserId(null);
         setEditMood(false);
@@ -99,7 +107,22 @@ const CategoryProvider = ({ children }) => {
     }
   };
   const handleChange = (e) => {
+    // setState({ service_id: e.target.value });
+    // setServiceId( e.target.value );
+    setServiceId(value);
+    // setFilter(e.target.value)
+
+  };
+  // input update method
+  const updateInputValue =(evt)=> {
+    const val = evt.target.value;
+    // ...       
+    setSubServiceName( val
+    );
+  }
+  const handleSearchChange = (e) => {
     let { name, value } = e.target;
+    setFilter(e.target.value);
     setState({ ...state, [name]: value });
   };
 
@@ -110,9 +133,9 @@ const CategoryProvider = ({ children }) => {
         closeModal,
         setData,
         handleDelete,
-        handleUpdate,
-        handleDisable,
-        loadUsers,
+        // handleUpdate,
+        // handleDisable,
+        loadCategories,
         handleSubmit,
         handleChange,
         categoryApi,
@@ -125,6 +148,10 @@ const CategoryProvider = ({ children }) => {
         initialState,
         filter,
         setFilter,
+        handleSearchChange,
+        updateInputValue,
+        subservicename,
+        serviceId
       }}
     >
       {children}

@@ -2553,7 +2553,7 @@ License - nucleoapp.com/license/
   display: inline-block;
   font: normal normal normal 14px/1 'nucleo-icons';
   font-size: inherit;
-  speak: none;
+  /* speak: none; */
   text-transform: none;
   /* Better Font Rendering */
   -webkit-font-smoothing: antialiased;
@@ -3524,7 +3524,7 @@ License - nucleoapp.com/license/
     background-color: #f2f2f2; }
   .footer nav {
     display: inline-block;
-    float: left;
+    /* float: left; */
     padding-left: 0; }
   .footer ul {
     margin-bottom: 0;
@@ -3656,7 +3656,7 @@ License - nucleoapp.com/license/
     text-align: center;
     text-transform: uppercase; }
   .fixed-plugin .adjustments-line p {
-    float: left;
+    /* float: left; */
     display: inline-block;
     margin-bottom: 0;
     font-size: 1em;
@@ -4807,3 +4807,36 @@ License - nucleoapp.com/license/
   outline: none; }
 
 /*# sourceMappingURL=paper-dashboard.css.map */
+
+
+
+/* ==================================
+PAGINATION-CSS
+================================== */
+.pagination{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+.pagination .page-num{
+  padding: 6px 14px;
+  border-radius: 3px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.pagination .page-num:hover{
+  background-color: #5AB1BB;
+  color: #fff;
+}
+.pagination .active-page{
+  background-color: #5AB1BB;
+  color: #fff;
+}
+
+/* ==================================
+================================== */

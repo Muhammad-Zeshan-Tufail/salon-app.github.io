@@ -16,12 +16,11 @@ function Modal() {
           <button onClick={closeModal}>X</button>
         </div>
         <div className="title">
-          <h3>Add New Product</h3>
+          <h5>Add New Product</h5>
         </div>
         <div className="body">
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label style={{ textAlign: "left" }}>Vendor Name</label>
               <input
                 type="text"
                 name="name"
@@ -31,7 +30,6 @@ function Modal() {
               />
             </div>
             <div className="form-group">
-              <label style={{ textAlign: "left" }}>Address</label>
               <input
                 type="text"
                 name="address"
@@ -41,7 +39,6 @@ function Modal() {
               />
             </div>
             <div className="form-group">
-              <label style={{ textAlign: "left" }}>Details</label>
               <input
                 type="text"
                 name="details"
@@ -55,11 +52,11 @@ function Modal() {
               <button onClick={closeModal} id="cancelBtn">
                 Cancel
               </button>
-              <div className="d-grid gap-2 mt-2">
+              {/* <div className="d-grid gap-2 mt-2"> */}
                 <button type="submit" onSubmit={handleSubmit}>
                   {editMood ? "Update" : "Submit"}
                 </button>
-              </div>
+              {/* </div> */}
             </div>
           </form>
         </div>

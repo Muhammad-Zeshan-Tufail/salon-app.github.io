@@ -1,17 +1,18 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useContext } from "react";
-// import { toast } from "react-toastify";
 
 import axios from "axios";
-
-const api = "http://localhost:3001/customers";
+const api = "http://localhost:4000/admin/get-customer";
+const UpdateApi = "http://localhost:4000/admin/update-customer"
+const DeleteApi = "http://localhost:4000/admin/delete-customer"
+// const api = "http://localhost:3001/customers";
 
 const initialState = {
   first_name: "",
   last_name: "",
-  date_of_birth: "",
-  country: "",
-  isDis:false
+  email:"",
+  phone:""
+  // isDis:false
 };
 const CustomerContext = createContext();
 
@@ -22,30 +23,28 @@ const CustomerProvider = ({ children }) => {
     const [editMood, setEditMood] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filter , setFilter] = useState("");
-    const {first_name, last_name, date_of_birth, country  } = state; 
-
+    const {first_name, last_name, email, phone_no} = state;
     const openModal = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => {
     setIsModalOpen(false);
-    setState({ first_name: "", last_name: "", date_of_birth: "", country: "",isDis:false });
-  };
+    setState({ first_name: "", last_name: "", email:"", phone_no:"" });
+    };
+
 
   const loadUsers = async () => {
     const response = await axios.get(api);
-    setData(response.data);
-  };
-  useEffect(() => {
+      setData(response.data);
+    };
+    useEffect(() => {
     loadUsers();
   }, []);
 
-  const handleDelete = async(id) => {
-    
-    // console.log(id ,"this is Delete action ");
 
+  const handleDelete = async(id) => {
     if (window.confirm("Are you sure, you want to delete it?")) {
-      axios.delete(`${api}/${id}`);
+      axios.delete(`${DeleteApi}/${id}`);
       // toast.success("Deleted Successfully");
       setTimeout(() => {
         loadUsers();
@@ -54,47 +53,42 @@ const CustomerProvider = ({ children }) => {
   };
 
   const handleUpdate = (id) => {
-    
-    // console.log(id ,"this is item id");
-    const singleUser = data.find((item) => item.id === id);
-    console.log(singleUser);
-    openModal();
-    setState({ ...singleUser });
-    // console.log({ ...singleUser });
-    setUserId(id);
-    setEditMood(true);
+    console.log(id)
+    const singleUser = data[0].find((item) => item.id === id);
+      openModal();
+      setState({ ...singleUser });
+      setUserId(id);
+      setEditMood(true);
   };
 
-  const handleDisable = async(id,isDis) => {
-    const singleUser = data.find((item) => item.id === id);
-    singleUser.isDis = isDis?false : true 
-    setState({...singleUser});
-    axios.put(`${api}/${id}`, {...singleUser} );
-    // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
-    setState({ first_name: "", last_name: "", date_of_birth: "", country: "",isDis:false });
-    setUserId(null);
-  }
+  // const handleDisable = async(id,isDis) => {
+  //   const singleUser = data.find((item) => item.id === id);
+  //   singleUser.isDis = isDis?false : true 
+  //   setState({...singleUser});
+  //   axios.put(`${api}/${id}`, {...singleUser} );
+  //   // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
+  //   setState({ first_name: "", last_name: "",email:"",phone:"" });
+  //   // setState({ first_name: "", last_name: "", date_of_birth: "", country: "",isDis:false });
+  //   setUserId(null);
+  // }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!first_name || !last_name || !date_of_birth || !country) {
+    if (!first_name || !last_name || !email || !phone_no ) {
       // toast.error("Please fill all input fields")
     } else {
       if (!editMood) {
         axios.post(api, state);
         // toast.success("Added Successfully");
-        setState({ first_name: "", last_name: "", date_of_birth: "", country: "",isDis:false });
-        setTimeout(() => {
+        setState({ first_name: "", last_name: "",email:"",phone_no:"" });
+       setTimeout(() => {
           loadUsers();
         }, 500);
-        
-      
         closeModal();
       } else {
-        axios.put(`${api}/${userId} `, state);
-        // toast.success("Updated Successfully");
-        setState({ first_name: "", last_name: "", date_of_birth: "", country: "",isDis:false });
+        axios.put(`${UpdateApi}/${userId} `, state);
+        setState({ first_name: "", last_name: "",email:"",phone_no:"" });
         setTimeout(() => {
           loadUsers();
         }, 500);
@@ -108,6 +102,13 @@ const CustomerProvider = ({ children }) => {
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
+  const handleSearchChange = (e) => {
+    let { name, value } = e.target;
+    setFilter(e.target.value)
+    setState({ ...state, [name]: value });
+  };
+
+  
 
   return (
     <CustomerContext.Provider
@@ -117,7 +118,7 @@ const CustomerProvider = ({ children }) => {
         setData,
         handleDelete,
         handleUpdate,
-        handleDisable,
+        // handleDisable,
         loadUsers,
         handleSubmit,
         handleChange,
@@ -131,6 +132,7 @@ const CustomerProvider = ({ children }) => {
         initialState,
         filter,
         setFilter,
+        handleSearchChange
       }}
     >
       {children}

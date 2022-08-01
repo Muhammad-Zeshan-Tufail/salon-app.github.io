@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
 import { useContext } from "react";
-// import { toast } from "react-toastify";
 import axios from "axios";
 
 const vendorApi = "http://localhost:3001/vendors";
@@ -22,7 +21,6 @@ const VendorProvider = ({ children }) => {
     const [filter , setFilter] = useState("");
     
     const { name, address, details  } = state; 
-
 
     const openModal = () => {
     setIsModalOpen(true);
@@ -57,7 +55,7 @@ const VendorProvider = ({ children }) => {
     setState({ ...singleUser });
     setUserId(id);
     setEditMood(true);
-  };
+  }
 
   const handleDisable = async(id,isDis) => {
     const singleUser = data.find((item) => item.id === id);
@@ -73,11 +71,10 @@ const VendorProvider = ({ children }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !address || !details ) {
-      // toast.error("Please fill all input fields");
+      //Show Error Toast
     } else {
       if (!editMood) {
         axios.post(vendorApi, state);
-        // toast.success("Added Successfully");
         setState({ name: "", address: "", details: "",isDis:false });
         setTimeout(() => {
           loadUsers();
@@ -85,7 +82,6 @@ const VendorProvider = ({ children }) => {
         closeModal();
       } else {
         axios.put(`${vendorApi}/${userId} `, state);
-        // toast.success("Updated Successfully");
         setState({ name: "", address: "", details: "",isDis:false });
         setTimeout(() => {
           loadUsers();
@@ -98,6 +94,12 @@ const VendorProvider = ({ children }) => {
   };
   const handleChange = (e) => {
     let { name, value } = e.target;
+    // setFilter(e.target.value)
+    setState({ ...state, [name]: value });
+  };
+  const handleSearchChange = (e) => {
+    let { name, value } = e.target;
+    setFilter(e.target.value)
     setState({ ...state, [name]: value });
   };
 
@@ -106,7 +108,6 @@ const VendorProvider = ({ children }) => {
       value={{
         openModal,
         closeModal,
-        setData,
         handleDelete,
         handleUpdate,
         handleDisable,
@@ -122,7 +123,9 @@ const VendorProvider = ({ children }) => {
         setEditMood,
         initialState,
         filter,
+        setData,
         setFilter,
+        handleSearchChange
       }}
     >
       {children}

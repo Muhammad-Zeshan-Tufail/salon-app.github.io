@@ -15,25 +15,21 @@ function Modal() {
           <button onClick={closeModal}>X</button>
         </div>
         <div className="title">
-          <h3>Add New Product</h3>
+          <h5>Add New Product</h5>
         </div>
         <div className="body">
         
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label style={{textAlign:"left"}}>Product Name</label>
             <input type='text' name='product_name' placeholder='Enter Product Name' value={product_name} onChange={handleChange}/>
           </div>
           <div className="form-group">
-            <label style={{textAlign:"left"}}>Brand</label>
             <input type='text' name='brand' placeholder='Enter Brand' value={brand} onChange={handleChange}/>
           </div>
           <div className="form-group">
-            <label style={{textAlign:"left"}}>Color</label>
             <input type='text' name='color' placeholder="Enter Color" value={color} onChange={handleChange}/>
           </div>
           <div className="form-group">
-            <label style={{textAlign:"left"}}>Quantity</label>
             <input type='number' name='quantity' placeholder='Enter Quantity' value={quantity} onChange={handleChange}/>
           </div>
 
