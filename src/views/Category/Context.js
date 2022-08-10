@@ -3,8 +3,8 @@ import { useContext } from "react";
 // import { toast } from "react-toastify";
 import axios from "axios";
 
-const categoryApi = "http://localhost:4000/admin/get-category";
-const subCategoryApi = "http://localhost:4000/admin/add-subservice";
+const categoryApi = "http://51.68.167.212:3003/admin/get-category";
+const subCategoryApi = "http://51.68.167.212:3003/admin/add-subservice";
 
 const initialState = {
   sub_service_name: "",
@@ -22,13 +22,14 @@ const CategoryProvider = ({ children }) => {
   const [editMood, setEditMood] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState("");
-  const [serviceId, setServiceId] = useState([]);
+  const [serviceId, setServiceId] = useState("");
   const [subservicename, setSubServiceName] = useState("");
 
-  const { sub_service_name, service_id } = state;
+  const {service_id } = state;
 
   const openModal = () => {
     setIsModalOpen(true);
+
   };
   const closeModal = () => {
     setIsModalOpen(false);
@@ -53,13 +54,14 @@ const CategoryProvider = ({ children }) => {
     }
   };
 
-  // const handleUpdate = (id) => {
-  //   const singleUser = data.find((item) => item.id === id);
-  //   openModal();
-  //   setState({ ...singleUser });
-  //   setUserId(id);
-  //   setEditMood(true);
-  // };
+  const handleUpdate = (id) => {
+    const singleUser = data.find((item) => item.id === id);
+    openModal();
+    setState({ ...singleUser });
+    setUserId(id);
+    setEditMood(true);
+  };
+
 
   // const handleDisable = async(id,isDis) => {
   //   const singleUser = data.find((item) => item.id === id);
@@ -79,11 +81,14 @@ const CategoryProvider = ({ children }) => {
 
       // toast.error("Please fill all input fields");
     } else {
-      console.log("in else");
+      // console.log("in else");
+      if (serviceId==="") {
+        // console.log("Please select Main Category");
+        window.alert("Please Select Main Category first")
+      }
 
-      if (!editMood) {
-        console.log("in inner else");
-        console.log(state)
+      else if (!editMood) {
+        // console.log("in inner else");
         axios.post(subCategoryApi, {service_id:serviceId, sub_service_name:subservicename});
         // toast.success("Added Successfully");
         // setMainState({service_name: ""});
@@ -92,7 +97,8 @@ const CategoryProvider = ({ children }) => {
           loadCategories();
         }, 500);
         closeModal();
-      } else {
+      }
+      else {
         axios.put(`${subCategoryApi}/${userId} `, state);
         // console.log(`${api}/${userId} ` , state);
         // toast.success("Updated Successfully");
@@ -107,15 +113,12 @@ const CategoryProvider = ({ children }) => {
     }
   };
   const handleChange = (e) => {
-    // setState({ service_id: e.target.value });
     setServiceId( e.target.value );
-    // setServiceId();
-    // setFilter(e.target.value)
-
   };
   // input update method
   const updateInputValue =(evt)=> {
     const val = evt.target.value;
+    
     // ...       
     setSubServiceName( val
     );
@@ -133,7 +136,7 @@ const CategoryProvider = ({ children }) => {
         closeModal,
         setData,
         handleDelete,
-        // handleUpdate,
+        handleUpdate,
         // handleDisable,
         loadCategories,
         handleSubmit,

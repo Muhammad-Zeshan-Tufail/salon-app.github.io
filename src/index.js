@@ -1,25 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-import Login from "./login/Login";
 import "./assets/css/paper-dashboard.css";
-
-// import "bootstrap/dist/css/bootstrap.min.css"
-// import AdminLayout from "./layouts/Admin"
+import 'react-toastify/dist/ReactToastify.css';
+import App from "./App";
+import { CustomerProvider } from "./views/customers/context";
+import { VendorProvider } from "./views/vendors/context";
+import { ProductProvider } from "./views/products/context";
+import { CategoryProvider } from "./views/Category/Context";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-    
-      <Route exact path="/login" render={() => <Login />} />
-      <Redirect to="/login" />
-        {/* <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-              <Redirect to="/admin/dashboard" /> */}
-    </Switch>
-  </BrowserRouter>,
+  <ProductProvider>
+    <CategoryProvider>
+      <CustomerProvider>
+        <VendorProvider>
+          <App />
+        </VendorProvider>
+      </CustomerProvider>
+    </CategoryProvider>
+  </ProductProvider>,
   document.getElementById("root")
 );

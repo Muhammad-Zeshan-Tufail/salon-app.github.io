@@ -1,4 +1,3 @@
-
 import React from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -9,17 +8,12 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
-import { CustomerProvider } from "views/customers/context";
-import { VendorProvider } from "views/vendors/context";
-import { ProductProvider } from "views/products/context";
-import { CategoryProvider } from "views/Category/Context";
-
 import routes from "routes.js";
 
 var ps;
 
 function Dashboard(props) {
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const [backgroundColor, setBackgroundColor] = React.useState("black");
   // eslint-disable-next-line
   const [activeColor, setActiveColor] = React.useState("info");
@@ -52,10 +46,6 @@ function Dashboard(props) {
       <div className="main-panel" ref={mainPanel}>
         <DemoNavbar {...props} />
         <Switch>
-        <ProductProvider>
-        <CategoryProvider>
-        <CustomerProvider>
-        <VendorProvider>
           {routes.map((prop, key) => {
             return (
               <Route
@@ -65,10 +55,6 @@ function Dashboard(props) {
               />
             );
           })}
-          </VendorProvider>
-          </CustomerProvider>
-          </CategoryProvider>
-          </ProductProvider>
         </Switch>
         <Footer fluid />
       </div>

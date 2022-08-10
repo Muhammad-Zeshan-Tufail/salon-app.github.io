@@ -78,7 +78,7 @@ function Customers() {
                   <thead className="text-primary">
                     <tr>
                       <th>No.</th>
-                      <th>Image</th>
+                      {/* <th>Image</th> */}
                       <th>Customer Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
@@ -110,7 +110,7 @@ function Customers() {
                         }).map((item, index) =>(
                         <tr key={index}>
                           <td>{item.id}</td>
-                          <td style={{padding:"0px",paddingLeft:"7px"}} ><img style={{width:"35px", height:"35px",borderRadius:"50%"}}  src={item.image} alt=""/> </td>
+                          {/* <td style={{padding:"0px",paddingLeft:"7px"}} ><img style={{width:"35px", height:"35px",borderRadius:"50%"}}  src={item.image} alt=""/> </td> */}
                           <td>{item.first_name}</td>
                           <td>{item.last_name}</td>
                           <td>{item.email}</td>

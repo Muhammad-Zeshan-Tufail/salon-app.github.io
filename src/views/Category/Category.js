@@ -114,11 +114,13 @@ function Category() {
                           if (filter === "") {
                             return item;
                           } else if (
-                            item.category_name
+                            item.service_name
                               .toLowerCase()
                               .includes(filter.toLowerCase())
                           ) {
                             return item;
+                          }else if(item.service_name.filter=== ""){
+                            return <tr><td>Not Found</td></tr>
                           }
                         })
                         .map((item, index) => (

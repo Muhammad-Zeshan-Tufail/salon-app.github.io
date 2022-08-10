@@ -2,9 +2,9 @@ import React, { useState, useEffect, createContext } from "react";
 import { useContext } from "react";
 
 import axios from "axios";
-const api = "http://localhost:4000/admin/get-customer";
-const UpdateApi = "http://localhost:4000/admin/update-customer"
-const DeleteApi = "http://localhost:4000/admin/delete-customer"
+const api = "http://51.68.167.212:3003/admin/get-customer";
+const UpdateApi = "http://51.68.167.212:3003/admin/update-customer"
+const DeleteApi = "http://51.68.167.212:3003/admin/delete-customer"
 // const api = "http://localhost:3001/customers";
 
 const initialState = {
@@ -23,7 +23,10 @@ const CustomerProvider = ({ children }) => {
     const [editMood, setEditMood] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filter , setFilter] = useState("");
-    const {first_name, last_name, email, phone_no} = state;
+    const {first_name, last_name, email, phone_no } = state;
+
+
+
     const openModal = () => {
     setIsModalOpen(true);
   };
@@ -53,7 +56,6 @@ const CustomerProvider = ({ children }) => {
   };
 
   const handleUpdate = (id) => {
-    console.log(id)
     const singleUser = data[0].find((item) => item.id === id);
       openModal();
       setState({ ...singleUser });
@@ -88,6 +90,7 @@ const CustomerProvider = ({ children }) => {
         closeModal();
       } else {
         axios.put(`${UpdateApi}/${userId} `, state);
+
         setState({ first_name: "", last_name: "",email:"",phone_no:"" });
         setTimeout(() => {
           loadUsers();
@@ -102,13 +105,12 @@ const CustomerProvider = ({ children }) => {
     let { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
+ 
   const handleSearchChange = (e) => {
     let { name, value } = e.target;
     setFilter(e.target.value)
     setState({ ...state, [name]: value });
   };
-
-  
 
   return (
     <CustomerContext.Provider
@@ -132,7 +134,7 @@ const CustomerProvider = ({ children }) => {
         initialState,
         filter,
         setFilter,
-        handleSearchChange
+        handleSearchChange,
       }}
     >
       {children}

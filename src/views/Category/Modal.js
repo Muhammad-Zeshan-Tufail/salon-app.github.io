@@ -4,9 +4,16 @@ import "../modal.css";
 import { Row, Col } from "react-bootstrap";
 
 function Modal() {
-  const { serviceId,subservicename,updateInputValue,closeModal, handleSubmit, handleChange, editMood, data,state } =
-    useGlobalContext();
-    const {sub_service_name , service_id}=state;
+  const {
+    serviceId,
+    subservicename,
+    updateInputValue,
+    closeModal,
+    handleChange,
+    handleSubmit,
+    editMood,
+    data,
+  } = useGlobalContext();
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -40,11 +47,12 @@ function Modal() {
                   <select
                     onChange={handleChange}
                     style={{ width: "110px", fontSize: "14px", border: "none" }}
-                    id='category'
+                    id="category"
                     value={serviceId}
+                    required
                   >
+                    <option>--Select--</option>
                     {data.map((item, id) => (
-                     
                       <option key={id} value={item.id}>
                         {item.service_name}
                       </option>
@@ -58,7 +66,8 @@ function Modal() {
                     type="text"
                     name="sub_service_name"
                     placeholder="Add Sub-Category"
-                    value={subservicename} onChange={evt => updateInputValue(evt)}                   
+                    value={subservicename}
+                    onChange={(evt) => updateInputValue(evt)}
                   />
                 </div>
               </Col>
@@ -67,6 +76,7 @@ function Modal() {
             <div className="form-group">
               <input type="file" name="upload image" />
             </div>
+
             <div className="footer">
               <button onClick={closeModal} id="cancelBtn">
                 Cancel

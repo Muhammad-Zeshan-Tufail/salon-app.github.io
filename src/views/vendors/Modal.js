@@ -1,7 +1,7 @@
 import React from "react";
-// import {ToastContainer } from "react-toastify";
 import { useGlobalContext } from "./context";
 import "../modal.css";
+
 
 function Modal() {
   const { closeModal, handleSubmit, handleChange, editMood, state } =
