@@ -2,12 +2,13 @@ import React, { useState, useEffect, createContext } from "react";
 import { useContext } from "react";
 import axios from "axios";
 
-const vendorApi = "http://localhost:3001/vendors";
+const vendorApi = "http://51.68.167.212:3003/admin/get-customer";
+
 
 const initialState = {
-  name: "",
-  address: "",
-  details: "",
+  first_name: "",
+  email: "",
+  last_name: "",
   isDis:false
 };
 const VendorContext = createContext();
@@ -20,19 +21,19 @@ const VendorProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filter , setFilter] = useState("");
     
-    const { name, address, details  } = state; 
+    const { first_name, email, last_name  } = state; 
 
     const openModal = () => {
     setIsModalOpen(true);
   };
   const closeModal = () => {
     setIsModalOpen(false);
-    setState({ name: "", address: "",details: "" });
+    setState({ first_name: "", email: "",last_name: "" });
   };
 
   const loadUsers = async () => {
     const response = await axios.get(vendorApi);
-    setData(response.data);
+    setData(response.data[0]);
   };
   useEffect(() => {
     loadUsers();
@@ -57,32 +58,32 @@ const VendorProvider = ({ children }) => {
     setEditMood(true);
   }
 
-  const handleDisable = async(id,isDis) => {
-    const singleUser = data.find((item) => item.id === id);
-    singleUser.isDis = isDis?false : true 
-    setState({...singleUser});
-    axios.put(`${vendorApi}/${id}`, {...singleUser} );
-    // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
-    setState({ name: "",address: "",details: "",isDis:false });
-    setUserId(null);
-  }
+  // const handleDisable = async(id,isDis) => {
+  //   const singleUser = data.find((item) => item.id === id);
+  //   singleUser.isDis = isDis?false : true 
+  //   setState({...singleUser});
+  //   axios.put(`${vendorApi}/${id}`, {...singleUser} );
+  //   // toast.success(isDis?"Enabled Successfully":"Disabled Successfully");
+  //   setState({ first_name: "",email: "",last_name: "",isDis:false });
+  //   setUserId(null);
+  // }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !address || !details ) {
+    if (!first_name || !email || !last_name ) {
       //Show Error Toast
     } else {
       if (!editMood) {
         axios.post(vendorApi, state);
-        setState({ name: "", address: "", details: "",isDis:false });
+        setState({ first_name: "", email: "", last_name: "",isDis:false });
         setTimeout(() => {
           loadUsers();
         }, 500);
         closeModal();
       } else {
         axios.put(`${vendorApi}/${userId} `, state);
-        setState({ name: "", address: "", details: "",isDis:false });
+        setState({ first_name: "", email: "", last_name: "",isDis:false });
         setTimeout(() => {
           loadUsers();
         }, 500);
@@ -110,7 +111,7 @@ const VendorProvider = ({ children }) => {
         closeModal,
         handleDelete,
         handleUpdate,
-        handleDisable,
+        // handleDisable,
         loadUsers,
         handleSubmit,
         handleChange,

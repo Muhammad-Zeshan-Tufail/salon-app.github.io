@@ -26,7 +26,7 @@ function VendorTable() {
     handleUpdate,
     handleDelete,
     isModalOpen,
-    handleDisable,
+    // handleDisable,
     filter,
     handleSearchChange,
   } = useGlobalContext();
@@ -133,9 +133,9 @@ function VendorTable() {
                                 alt={image}
                               />{" "}
                             </td>
-                            <td>{item.name}</td>
-                            <td>{item.address}</td>
-                            <td>{item.details}</td>
+                            <td>{item.first_name}</td>
+                            <td>{item.last_name}</td>
+                            <td>{item.email}</td>
                             <td>
                               <div className="btn-group">
                                 <button
@@ -152,7 +152,7 @@ function VendorTable() {
                                 >
                                   <MdDelete />
                                 </button>
-                                <div
+                                {/* <div
                                   onClick={() =>
                                     handleDisable(item.id, item.isDis)
                                   }
@@ -163,7 +163,7 @@ function VendorTable() {
                                   ) : (
                                     <input type="checkbox" />
                                   )}
-                                </div>
+                                </div> */}
                               </div>
                             </td>
                           </tr>

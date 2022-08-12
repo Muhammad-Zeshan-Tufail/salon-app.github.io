@@ -45,6 +45,7 @@ function Category() {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
+
   // =================================
   return (
     <>
@@ -96,6 +97,7 @@ function Category() {
                     <tr>
                       <th>No.</th>
                       <th>Category Name</th>
+                      <th>Sub Category Name</th>
                       <th>Image</th>
                       <th>Action</th>
                     </tr>
@@ -124,10 +126,18 @@ function Category() {
                           }
                         })
                         .map((item, index) => (
+                          
                           <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{item.service_name}</td>
-                            <td>{item.image_url}</td>
+                            <td>{(item.sub_services.map((item, index)=>{
+                            return (
+                              <p key={index}>
+                                {item.sub_service_name}
+                              </p> 
+                            )
+                          }))}</td>
+                            <td><img src={item.image_url} alt="img" /></td>
                             <td>
                               <div className="btn-group">
                                 <button

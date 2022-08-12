@@ -13,7 +13,9 @@ function Modal() {
     handleSubmit,
     editMood,
     data,
+    addMain,handleMainCat,fileSelectedHandler
   } = useGlobalContext();
+ 
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -32,19 +34,21 @@ function Modal() {
           </Col>
         </Row>
         <div className="add-btn">
-          <button type="button">Add Category</button>
+          <button type="button" onClick={handleMainCat}>{!addMain?"Add Main Category":"Add Sub Category"}</button>
         </div>
         <div className="body">
           {/* <DropDown/> */}
           {/* ===========DROP-DOWN============*/}
-          <form className="form" onSubmit={handleSubmit}>
+          <form className="form" onSubmit={handleSubmit} encType="multipart/form">
+            {!addMain?
+            <>
             <Row style={{ alignItems: "baseline" }}>
               <Col md={6}>
-                <div style={{ display: "flex" }}>
-                  <label style={{ fontSize: "14px", display: "block" }}>
+               <div style={{ display: "flex" }}>
+                 <label style={{ fontSize: "14px", display: "block" }}>
                     Category:
                   </label>
-                  <select
+                 <select
                     onChange={handleChange}
                     style={{ width: "110px", fontSize: "14px", border: "none" }}
                     id="category"
@@ -72,10 +76,26 @@ function Modal() {
                 </div>
               </Col>
             </Row>
+             <div className="form-group">
+             <input onChange={fileSelectedHandler} type="file" name="image" />
+           </div></>
+              :<> <Col md={6} className="d-flex m-auto">
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="service_name"
+                  placeholder="Add Main Category"
+                  // value={servicename}
+                  onChange={(evt) => updateInputValue(evt)}
+                />
+              </div>
+            </Col> 
+             <div className="form-group">
+             <input type="file" name="image" />
+           </div>
+           </>}
 
-            <div className="form-group">
-              <input type="file" name="upload image" />
-            </div>
+           
 
             <div className="footer">
               <button onClick={closeModal} id="cancelBtn">

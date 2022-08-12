@@ -9,11 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from "./App";
 import { CustomerProvider } from "./views/customers/context";
 import { VendorProvider } from "./views/vendors/context";
-import { ProductProvider } from "./views/products/context";
+// import { ProductProvider } from "./views/products/context";
 import { CategoryProvider } from "./views/Category/Context";
 
 ReactDOM.render(
-  <ProductProvider>
+  // <ProductProvider>
     <CategoryProvider>
       <CustomerProvider>
         <VendorProvider>
@@ -21,6 +21,7 @@ ReactDOM.render(
         </VendorProvider>
       </CustomerProvider>
     </CategoryProvider>
-  </ProductProvider>,
+  // </ProductProvider>
+  ,
   document.getElementById("root")
 );

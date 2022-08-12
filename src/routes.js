@@ -1,4 +1,4 @@
-import Analytics from "views/Analytics";
+// import Analytics from "views/Analytics";
 import Customer from "views/customers/Customer";
 import Dashboard from "views/Dashboard.js";
 import Order from "views/orders/Order";
@@ -50,12 +50,12 @@ var routes = [
     component: Category,
     layout: "/admin",
   },
-  {
-    path: "/analytics",
-    name: "Analytics",
-    icon: "nc-icon nc-sound-wave",
-    component: Analytics,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/analytics",
+  //   name: "Analytics",
+  //   icon: "nc-icon nc-sound-wave",
+  //   component: Analytics,
+  //   layout: "/admin",
+  // },
 ];
 export default routes;

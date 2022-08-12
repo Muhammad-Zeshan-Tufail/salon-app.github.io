@@ -3,13 +3,14 @@ import { useContext } from "react";
 // import { toast } from "react-toastify";
 import axios from "axios";
 
-const categoryApi = "http://51.68.167.212:3003/admin/get-category";
-const subCategoryApi = "http://51.68.167.212:3003/admin/add-subservice";
+const categoryApi = "http://localhost:4000/admin/get-category";
+const subCategoryApi = "http://localhost:4000/admin/add-subservice";
+// const getSubCategoryApi = "http://51.68.167.212:3003/admin/get-subservices";
 
 const initialState = {
   sub_service_name: "",
   image_url: "",
-  service_id:""
+  service_id: "",
   // isDis:false
 };
 
@@ -17,6 +18,7 @@ const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  // const [subData, setSubData] = useState([]);
   const [userId, setUserId] = useState(null);
   const [state, setState] = useState(initialState);
   const [editMood, setEditMood] = useState(false);
@@ -24,16 +26,20 @@ const CategoryProvider = ({ children }) => {
   const [filter, setFilter] = useState("");
   const [serviceId, setServiceId] = useState("");
   const [subservicename, setSubServiceName] = useState("");
+  const [addMain, setAddMain] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const {service_id } = state;
+  const { service_id } = state;
+  const handleMainCat = () => {
+    setAddMain(!addMain);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
-
   };
   const closeModal = () => {
     setIsModalOpen(false);
-    setState({ sub_service_name: "", image_url: "" });
+    setState({ sub_service_name: "", subservicename: "", image_url: "" });
   };
 
   const loadCategories = async () => {
@@ -43,6 +49,13 @@ const CategoryProvider = ({ children }) => {
   useEffect(() => {
     loadCategories();
   }, []);
+
+  const fileSelectedHandler = (event) => {
+    let file = event.target.files[0].name;
+    setSelectedFile(event.target.files[0]);
+    console.log(file);
+    console.log(selectedFile);
+  };
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure, you want to delete it?")) {
@@ -62,7 +75,6 @@ const CategoryProvider = ({ children }) => {
     setEditMood(true);
   };
 
-
   // const handleDisable = async(id,isDis) => {
   //   const singleUser = data.find((item) => item.id === id);
   //   singleUser.isDis = isDis?false : true
@@ -74,6 +86,7 @@ const CategoryProvider = ({ children }) => {
   // }
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     // console.log("clicked");
     if (!subservicename) {
@@ -82,23 +95,25 @@ const CategoryProvider = ({ children }) => {
       // toast.error("Please fill all input fields");
     } else {
       // console.log("in else");
-      if (serviceId==="") {
+      if (!addMain && serviceId === "") {
         // console.log("Please select Main Category");
-        window.alert("Please Select Main Category first")
-      }
-
-      else if (!editMood) {
+        window.alert("Please Select Main Category first");
+      } else if (!editMood) {
         // console.log("in inner else");
-        axios.post(subCategoryApi, {service_id:serviceId, sub_service_name:subservicename});
+
+        axios.post(subCategoryApi, {
+          service_id: serviceId,
+          sub_service_name: subservicename,
+          image: selectedFile,
+        });
         // toast.success("Added Successfully");
-        // setMainState({service_name: ""});
+        setSubServiceName({ sub_service_name: "" });
         setState({ sub_service_name: "", service_id });
         setTimeout(() => {
           loadCategories();
         }, 500);
         closeModal();
-      }
-      else {
+      } else {
         axios.put(`${subCategoryApi}/${userId} `, state);
         // console.log(`${api}/${userId} ` , state);
         // toast.success("Updated Successfully");
@@ -113,16 +128,15 @@ const CategoryProvider = ({ children }) => {
     }
   };
   const handleChange = (e) => {
-    setServiceId( e.target.value );
+    setServiceId(e.target.value);
   };
   // input update method
-  const updateInputValue =(evt)=> {
+  const updateInputValue = (evt) => {
     const val = evt.target.value;
-    
-    // ...       
-    setSubServiceName( val
-    );
-  }
+
+    // ...
+    setSubServiceName(val);
+  };
   const handleSearchChange = (e) => {
     let { name, value } = e.target;
     setFilter(e.target.value);
@@ -154,7 +168,10 @@ const CategoryProvider = ({ children }) => {
         handleSearchChange,
         updateInputValue,
         subservicename,
-        serviceId
+        serviceId,
+        addMain,
+        handleMainCat,
+        fileSelectedHandler,
       }}
     >
       {children}

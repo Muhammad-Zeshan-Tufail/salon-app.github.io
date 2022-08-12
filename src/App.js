@@ -101,9 +101,9 @@ function App() {
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Redirect to="/admin/dashboard" />
         </Switch>
-          ) : (
+           ) : (
             renderForm
-      )}
+      )} 
     </BrowserRouter>
   );
 }

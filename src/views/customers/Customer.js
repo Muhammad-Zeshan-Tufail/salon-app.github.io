@@ -89,7 +89,7 @@ function Customers() {
                   
                   <tbody>
                     {/* =================Custom Work============== */}
-                    {data && data.length === 0 ? (
+                    {data[0] && data[0].length === 0 ? (
                       <tr>
                         <td>
                           No data found
